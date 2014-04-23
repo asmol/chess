@@ -15,6 +15,7 @@ namespace chess
 
         Player _activePlayer;
         GameMemento _memento;
+        List<IFigure> _movedKingsOrRooks;
 
         public IFigure[,] Field
         {
@@ -81,24 +82,24 @@ namespace chess
 
         public void TryToDoTurn(Point2 from, Point2 to)
         {
+            Turn previousTurn = _memento.CurrentTurn>0? _memento.Turns[_memento.CurrentTurn-1] : null;
+            Point2 prevFrom = previousTurn == null ? new Point2(0, 0) : previousTurn.From;
+            Point2 prevTo = previousTurn == null ? new Point2(0, 0) : previousTurn.To;
+            bool isAllowed = _turnProcessor.IsAllowedTurn(_field, _activePlayer.Team, from, to,
+                _movedKingsOrRooks, prevFrom, prevTo);
 
-            ETurnResult result = _turnProcessor.CheckTurn(_field, _activePlayer.Team, from, to);
-
-            if (result == ETurnResult.prohibited) { 
+            if (! isAllowed) { 
                 StateChanged(_field); 
                 _activePlayer.AllowToDoTurn(this); 
                 return;
             }
 
-            Turn newTurn = new Turn(from, to, 0);
-            _memento.Turns.RemoveRange(_memento.CurrentTurn, _memento.Turns.Count - _memento.CurrentTurn);
-            _memento.Turns.Add(newTurn);
-            _memento.CurrentTurn++;
-            ExecuteTurn(newTurn);
+            AddTurnInMemento(from, to, 0);
+            ETurnResult result =  _turnProcessor.DoAllowedTurn(_field, from, to, EmptyDelegate, ref  _movedKingsOrRooks);
 
             StateChanged(_field);
 
-            if (result == ETurnResult.normal || result == ETurnResult.check)
+            if (result == ETurnResult.normal )
             {
                 ChangeActivePlayer();
                 _activePlayer.AllowToDoTurn(this);
@@ -110,6 +111,19 @@ namespace chess
             
         }
 
+        void AddTurnInMemento(Point2 from, Point2 to, int time)
+        {
+            Turn newTurn = new Turn(from, to, 0);
+            _memento.Turns.RemoveRange(_memento.CurrentTurn, _memento.Turns.Count - _memento.CurrentTurn);
+            _memento.Turns.Add(newTurn);
+            _memento.CurrentTurn++;
+        }
+
+        EPawnPromotion EmptyDelegate()
+        {
+            return EPawnPromotion.Rook;
+        }
+
         void ChangeActivePlayer()
         {
             if (_activePlayer == _players[0]) _activePlayer = _players[1];
@@ -118,11 +132,6 @@ namespace chess
 
         
 
-        public bool CheckIfTurnIsPossible(Point2 from, Point2 to)
-        {
-            return _turnProcessor.CheckTurn(_field, _activePlayer.Team, from, to) 
-                != ETurnResult.prohibited;
-        }
 
         IFigure[,] CreateStartFigures()
         {

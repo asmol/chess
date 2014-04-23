@@ -6,6 +6,9 @@ using System.Drawing;
 
 namespace chess
 {
+    public enum EPawnPromotion { Queen, Bishop, Knight, Rook }
+    public delegate EPawnPromotion ChoosePawnPromotionDelegate();
+
     public delegate void FigureMovedHandler(object sender, FigureMovedEventArgs e);
     public delegate void MoveCancelledHandler(object sender, EventArgs e);
     public delegate void MoveRepeatedHandler(object sender, EventArgs e);

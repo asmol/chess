@@ -101,7 +101,8 @@ namespace chess
 
         private bool isMovePossible(Point from, Point to, IFigure[,] field, ETeam team)
         {
-            return processor.CheckTurn(field,team,new Point2(from.X,from.Y),new Point2(to.X,to.Y)) != ETurnResult.prohibited;
+            return true;
+            //return processor.CheckTurn(field,team,new Point2(from.X,from.Y),new Point2(to.X,to.Y)) != ETurnResult.prohibited;
         }
 
         #endregion
