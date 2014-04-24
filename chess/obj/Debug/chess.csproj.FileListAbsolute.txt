@@ -78,3 +78,13 @@ Z:\Profile\Дисциплины\ООП\ATT 2\chess_apr20\chess\obj\Debug\chess.P
 Z:\Profile\Дисциплины\ООП\ATT 2\chess_apr20\chess\obj\Debug\chess.Properties.Resources.resources
 Z:\Profile\Дисциплины\ООП\ATT 2\chess_apr20\chess\obj\Debug\GenerateResource.read.1.tlog
 Z:\Profile\Дисциплины\ООП\ATT 2\chess_apr20\chess\obj\Debug\GenerateResource.write.1.tlog
+D:\Временное\chessrep\chess\bin\Debug\chess.exe.config
+D:\Временное\chessrep\chess\obj\Debug\chess.exe
+D:\Временное\chessrep\chess\obj\Debug\chess.pdb
+D:\Временное\chessrep\chess\bin\Debug\chess.exe
+D:\Временное\chessrep\chess\bin\Debug\chess.pdb
+D:\Временное\chessrep\chess\obj\Debug\chess.csprojResolveAssemblyReference.cache
+D:\Временное\chessrep\chess\obj\Debug\chess.FormMain.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.Painter.PainterDefault.Resources.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.Properties.Resources.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.csproj.GenerateResource.Cache
