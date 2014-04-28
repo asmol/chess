@@ -126,10 +126,10 @@ namespace chess
                 IFigure pawn = field[to.Y, to.X];
                 switch (pawnPromotiom)
                 {
-                    case EPawnPromotion.Bishop: pawn = new Bishop(pawn.Team); break;
-                    case EPawnPromotion.Knight: pawn = new Knight(pawn.Team); break;
-                    case EPawnPromotion.Queen: pawn = new Queen(pawn.Team); break;
-                    case EPawnPromotion.Rook: pawn = new Rook(pawn.Team); break;
+                    case EPawnPromotion.Bishop: field[to.Y, to.X] = new Bishop(pawn.Team); break;
+                    case EPawnPromotion.Knight: field[to.Y, to.X] = new Knight(pawn.Team); break;
+                    case EPawnPromotion.Queen: field[to.Y, to.X] = new Queen(pawn.Team); break;
+                    case EPawnPromotion.Rook: field[to.Y, to.X] = new Rook(pawn.Team); break;
                 }
             }
 
