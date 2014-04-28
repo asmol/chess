@@ -32,5 +32,6 @@ namespace chess
         event MoveRepeatedHandler MoveRepeated;
         void DrawBoard(IFigure[,] figures);
         void UpdateData(Player[] players, int activePlayer, int currentMove);
+        EPawnPromotion ChoosePawnPromotion();
     }
 }

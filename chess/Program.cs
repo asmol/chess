@@ -22,6 +22,7 @@ namespace chess
             Game game = new Game(form,  CreatePlayers(), new SimpleTurnProcessor());
             Thread gameThread = new Thread(new ThreadStart(game.StartGame));
             gameThread.IsBackground = true;
+            gameThread.SetApartmentState(ApartmentState.STA);
             gameThread.Start();
 
             Application.Run(form);

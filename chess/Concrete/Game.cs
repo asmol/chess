@@ -60,7 +60,7 @@ namespace chess
             for (int i = 0; i < _memento.CurrentTurn; i++)
             {
                 Turn t = _memento.Turns[i];
-                _turnProcessor.DoAllowedTurn(ref _field, t.From, t.To, EmptyDelegate, ref _movedKingsOrRooks); 
+                _turnProcessor.DoAllowedTurn(ref _field, t.From, t.To, _form.ChoosePawnPromotion, ref _movedKingsOrRooks); 
             }
             StateChanged(_field);
         }
@@ -95,7 +95,7 @@ namespace chess
             }
 
             AddTurnInMemento(from, to, 0);
-            ETurnResult result = _turnProcessor.DoAllowedTurn(ref _field, from, to, EmptyDelegate, ref  _movedKingsOrRooks);
+            ETurnResult result = _turnProcessor.DoAllowedTurn(ref _field, from, to, _form.ChoosePawnPromotion, ref  _movedKingsOrRooks);
 
             StateChanged(_field);
 
@@ -157,11 +157,6 @@ namespace chess
             _memento.Turns.RemoveRange(_memento.CurrentTurn, _memento.Turns.Count - _memento.CurrentTurn);
             _memento.Turns.Add(newTurn);
             _memento.CurrentTurn++;
-        }
-
-        EPawnPromotion EmptyDelegate()
-        {
-            return EPawnPromotion.Rook;
         }
 
         void ChangeActivePlayer()
