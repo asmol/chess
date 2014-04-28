@@ -7,6 +7,7 @@ namespace chess
 {
     public class Game:IOriginator
     {
+        #region initialization
 
         IForm _form;
         IFigure[,] _field;
@@ -17,6 +18,7 @@ namespace chess
         GameMemento _memento;
         List<IFigure> _movedKingsOrRooks;
 
+        
         public IFigure[,] Field
         {
             get {return _field;}
@@ -26,12 +28,12 @@ namespace chess
         public event StateChangedHandler StateChanged;
 
         //абстрактная фабрика или 2 конструктора () и (string file) ?
-        public Game(IForm form, Player[] players
+        public Game( IForm form, Player[] players
             , ITurnProcessor turnProcessor)
         {
-            _form = form; _field = CreateStartFigures(); _players = players;
+            _form = form; 
+            _players = players;
             _turnProcessor = turnProcessor;
-            _activePlayer = _players[0];
 
             StateChanged += form.DrawBoard;
 
@@ -42,35 +44,25 @@ namespace chess
                 form.MoveRepeated += p.UserRepeatedTurn;
 
             }
+
+
+            _memento = new GameMemento();
+            ClearGameState();
         }
+        #endregion
 
-        
-
+        #region public methods
         public void RestoreState(GameMemento memento)
         {
             _memento = memento;
-            _field = CreateStartFigures();
+            ClearGameState();
             _activePlayer = memento.CurrentTurn % 2 == 0 ? _players[0] : _players[1];
             for (int i = 0; i < _memento.CurrentTurn; i++)
             {
-                ExecuteTurn(_memento.Turns[i]);
+                Turn t = _memento.Turns[i];
+                _turnProcessor.DoAllowedTurn(_field, t.From, t.To, EmptyDelegate, ref _movedKingsOrRooks); 
             }
-            //StateChanged(_field,false);
-        }
-
-        void ExecuteTurn(Turn turn)
-        {
-            // как сюда добавить caretaker?
-            IFigure figure = _field[turn.From.Y, turn.From.X];
-            IFigure victim = _field[turn.To.Y, turn.To.X];
-            if (victim != null)
-            {
-                Player nonActivePlayer = _activePlayer == _players[0] ? _players[1] : _players[0];
-                nonActivePlayer.LostFigures.Add(victim);
-            }
-            _field[turn.To.Y, turn.To.X] = figure;
-            _field[turn.From.Y, turn.From.X] = null;
-            //тут еще что то нужно делать со временем
+            StateChanged(_field);
         }
 
         public void StartGame()
@@ -80,36 +72,84 @@ namespace chess
             _activePlayer.AllowToDoTurn(this);
         }
 
+        public void GetCopyOfGameState(out IFigure[,] field, out Point2 previousTurnFrom,
+            out Point2 previousTurnTo, out List<IFigure> movedKingsOrRooks)
+        {
+            field = (IFigure[,])_field.Clone();
+            GetPreviousTurn(out previousTurnFrom, out previousTurnTo);
+            movedKingsOrRooks = new List<IFigure>(this._movedKingsOrRooks);
+        }
+
         public void TryToDoTurn(Point2 from, Point2 to)
         {
-            Turn previousTurn = _memento.CurrentTurn>0? _memento.Turns[_memento.CurrentTurn-1] : null;
-            Point2 prevFrom = previousTurn == null ? new Point2(0, 0) : previousTurn.From;
-            Point2 prevTo = previousTurn == null ? new Point2(0, 0) : previousTurn.To;
+            Point2 prevTo, prevFrom;
+            GetPreviousTurn(out prevFrom, out prevTo);
             bool isAllowed = _turnProcessor.IsAllowedTurn(_field, _activePlayer.Team, from, to,
                 _movedKingsOrRooks, prevFrom, prevTo);
 
-            if (! isAllowed) { 
-                StateChanged(_field); 
-                _activePlayer.AllowToDoTurn(this); 
+            if (!isAllowed)
+            {
+                StateChanged(_field);
+                _activePlayer.AllowToDoTurn(this);
                 return;
             }
 
             AddTurnInMemento(from, to, 0);
-            ETurnResult result =  _turnProcessor.DoAllowedTurn(_field, from, to, EmptyDelegate, ref  _movedKingsOrRooks);
+            ETurnResult result = _turnProcessor.DoAllowedTurn(_field, from, to, EmptyDelegate, ref  _movedKingsOrRooks);
 
             StateChanged(_field);
 
-            if (result == ETurnResult.normal )
+            if (result == ETurnResult.normal)
             {
                 ChangeActivePlayer();
                 _activePlayer.AllowToDoTurn(this);
             }
             else
             {
-              //  FinishGame(result);
+                //  FinishGame(result);
             }
-            
+
         }
+
+        public void CancelTurn()
+        {
+            if (_memento.CurrentTurn > 0)
+            {
+                _memento.CurrentTurn--;
+                RestoreState(_memento);
+                _activePlayer.AllowToDoTurn(this);
+            }
+        }
+
+        public void RedoTurn()
+        {
+            if (_memento.CurrentTurn < _memento.Turns.Count)
+            {
+                _memento.CurrentTurn++;
+                RestoreState(_memento);
+                _activePlayer.AllowToDoTurn(this);
+            }
+        }
+
+        #endregion
+
+        #region auxiliary methods
+        void ClearGameState()
+        {
+            _movedKingsOrRooks = new List<IFigure>();
+            _field = CreateStartFigures();
+            _activePlayer = _players[0];
+        }
+
+        void GetPreviousTurn(out Point2 previousTurnFrom,
+            out Point2 previousTurnTo)
+        {
+            Turn previousTurn = _memento.CurrentTurn > 0 ? _memento.Turns[_memento.CurrentTurn - 1] : null;
+            previousTurnFrom = previousTurn == null ? new Point2(0, 0) : previousTurn.From;
+            previousTurnTo = previousTurn == null ? new Point2(0, 0) : previousTurn.To;
+        }
+
+       
 
         void AddTurnInMemento(Point2 from, Point2 to, int time)
         {
@@ -147,29 +187,11 @@ namespace chess
                 {new Rook(ETeam.White),new Knight(ETeam.White),new Bishop(ETeam.White),new Queen(ETeam.White),new King(ETeam.White),new Bishop(ETeam.White),new Knight(ETeam.White),new Rook(ETeam.White)}
             };
         }
+        #endregion
 
-        public void CancelTurn()
-        {
-            if (_memento.CurrentTurn > 0)
-            {
-                _memento.CurrentTurn--;
-                RestoreState(_memento);
-                _activePlayer.AllowToDoTurn(this);
-            }
-        }
-
-        public void RedoTurn()
-        {
-            if (_memento.CurrentTurn < _memento.Turns.Count)
-            {
-                _memento.CurrentTurn++;
-                RestoreState(_memento);
-                _activePlayer.AllowToDoTurn(this);
-            }
-        }
-
+        #region game state properties
         public GameMemento Memento { get { return _memento; } }
-
-        
+        public Player[] Players { get { return _players; } }
+        #endregion
     }
 }
