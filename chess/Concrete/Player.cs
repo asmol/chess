@@ -86,5 +86,6 @@ namespace chess
         }
         public ETeam Team { get { return _team; } }
         public int StartTime { get { return _timeStart; } }
+        public int Time { get { return _timeLeft; } }
     }
 }

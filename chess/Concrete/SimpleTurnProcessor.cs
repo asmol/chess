@@ -10,7 +10,7 @@ namespace chess
 
         bool IsFigureBelongsTeam(IFigure figure, ETeam team)
         {
-            return figure != null || figure.Team == team;
+            return figure != null && figure.Team == team;
         }
 
         bool IsFigureCanReachTile(IFigure[,] field, Point2 from, Point2 to)
@@ -70,9 +70,9 @@ namespace chess
                 {
                     //everything ok
                 }
-                else return false;
+                else return true;
             }
-            return true;
+            return false;
         }
 
 
@@ -108,7 +108,7 @@ namespace chess
             return figure.Type == EType.Pawn && (to.Y == 0 || to.Y == fieldVerticalSize-1);
         }
 
-        public ETurnResult DoAllowedTurn(IFigure[,] field, Point2 from, Point2 to
+        public ETurnResult DoAllowedTurn(ref IFigure[,] field, Point2 from, Point2 to
             , ChoosePawnPromotionDelegate ChoosePawnPromotion, ref List<IFigure> movedKingsOrRooks )
         {
             //1. do turn
