@@ -60,7 +60,9 @@ namespace chess
             for (int i = 0; i < _memento.CurrentTurn; i++)
             {
                 Turn t = _memento.Turns[i];
-                _turnProcessor.DoAllowedTurn(ref _field, t.From, t.To, _form.ChoosePawnPromotion, ref _movedKingsOrRooks); 
+                ChoosePawnPromotionDelegate pawnPromotionDelegate 
+                    = new ChoosePawnPromotionDelegate(()=>t.PawnPromotion);
+                _turnProcessor.DoAllowedTurn(ref _field, t.From, t.To, pawnPromotionDelegate, ref _movedKingsOrRooks); 
             }
             StateChanged(_field);
         }
@@ -94,9 +96,12 @@ namespace chess
                 return;
             }
 
-            AddTurnInMemento(from, to, 0);
-            ETurnResult result = _turnProcessor.DoAllowedTurn(ref _field, from, to, _form.ChoosePawnPromotion, ref  _movedKingsOrRooks);
-
+            EPawnPromotion? wasPawnPromotion;
+            ETurnResult result = _turnProcessor.DoAllowedTurn(
+                ref _field, from, to, _form.ChoosePawnPromotion
+                , ref  _movedKingsOrRooks, out wasPawnPromotion);
+            AddTurnInMemento(from, to, 0, wasPawnPromotion);
+            
             StateChanged(_field);
 
             if (result == ETurnResult.normal)
@@ -119,6 +124,7 @@ namespace chess
                 RestoreState(_memento);
                 _activePlayer.AllowToDoTurn(this);
             }
+            StateChanged(_field);
         }
 
         public void RedoTurn()
@@ -129,11 +135,13 @@ namespace chess
                 RestoreState(_memento);
                 _activePlayer.AllowToDoTurn(this);
             }
+            StateChanged(_field);
         }
 
         #endregion
 
         #region auxiliary methods
+
         void ClearGameState()
         {
             _movedKingsOrRooks = new List<IFigure>();
@@ -151,9 +159,9 @@ namespace chess
 
        
 
-        void AddTurnInMemento(Point2 from, Point2 to, int time)
+        void AddTurnInMemento(Point2 from, Point2 to, int time, EPawnPromotion? pawnPromotion)
         {
-            Turn newTurn = new Turn(from, to, 0);
+            Turn newTurn = new Turn(from, to, 0, pawnPromotion);
             _memento.Turns.RemoveRange(_memento.CurrentTurn, _memento.Turns.Count - _memento.CurrentTurn);
             _memento.Turns.Add(newTurn);
             _memento.CurrentTurn++;

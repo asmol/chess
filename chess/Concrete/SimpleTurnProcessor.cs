@@ -109,7 +109,8 @@ namespace chess
         }
 
         public ETurnResult DoAllowedTurn(ref IFigure[,] field, Point2 from, Point2 to
-            , ChoosePawnPromotionDelegate ChoosePawnPromotion, ref List<IFigure> movedKingsOrRooks )
+            , ChoosePawnPromotionDelegate ChoosePawnPromotion, ref List<IFigure> movedKingsOrRooks,
+            out EPawnPromotion? wasPawnPromotion)
         {
             //1. do turn
             IFigure figure = field[from.Y, from.X];
@@ -120,17 +121,19 @@ namespace chess
             }
             field = MimicTurn(field, from, to);
 
+            wasPawnPromotion = null;
             if (IsPawnPromotion(figure, to, field.GetLength(0)))
             {
-                EPawnPromotion pawnPromotiom = ChoosePawnPromotion();
+                wasPawnPromotion = ChoosePawnPromotion();
                 IFigure pawn = field[to.Y, to.X];
-                switch (pawnPromotiom)
+                switch (wasPawnPromotion)
                 {
                     case EPawnPromotion.Bishop: field[to.Y, to.X] = new Bishop(pawn.Team); break;
                     case EPawnPromotion.Knight: field[to.Y, to.X] = new Knight(pawn.Team); break;
                     case EPawnPromotion.Queen: field[to.Y, to.X] = new Queen(pawn.Team); break;
                     case EPawnPromotion.Rook: field[to.Y, to.X] = new Rook(pawn.Team); break;
                 }
+                
             }
 
             //2. define turn result
