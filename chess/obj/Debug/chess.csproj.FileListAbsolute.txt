@@ -1,0 +1,12 @@
+D:\Временное\chessrep\chess\bin\Debug\chess.exe.config
+D:\Временное\chessrep\chess\obj\Debug\chess.csprojResolveAssemblyReference.cache
+D:\Временное\chessrep\chess\obj\Debug\chess.FormPreferences.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.FormPromotion.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.Painter.PainterDefault.Resources.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.Properties.Resources.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.csproj.GenerateResource.Cache
+D:\Временное\chessrep\chess\bin\Debug\chess.exe
+D:\Временное\chessrep\chess\bin\Debug\chess.pdb
+D:\Временное\chessrep\chess\obj\Debug\chess.FormMain.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.exe
+D:\Временное\chessrep\chess\obj\Debug\chess.pdb
