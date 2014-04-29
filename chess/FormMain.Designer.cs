@@ -46,7 +46,6 @@
             this.MIAbout = new System.Windows.Forms.MenuItem();
             this.MIHelp = new System.Windows.Forms.MenuItem();
             this.MenuMain = new System.Windows.Forms.MainMenu(this.components);
-<<<<<<< HEAD
             this.TCMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -69,31 +68,18 @@
             this.TCMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.TSMain.SuspendLayout();
-=======
-            ((System.ComponentModel.ISupportInitialize)(this.SBPMove)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SBPWhite)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SBPBlack)).BeginInit();
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             this.SuspendLayout();
             // 
             // SBMain
             // 
-<<<<<<< HEAD
             this.SBMain.Location = new System.Drawing.Point(0, 318);
-=======
-            this.SBMain.Location = new System.Drawing.Point(0, 348);
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             this.SBMain.Name = "SBMain";
             this.SBMain.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.SBPMove,
             this.SBPWhite,
             this.SBPBlack});
             this.SBMain.ShowPanels = true;
-<<<<<<< HEAD
             this.SBMain.Size = new System.Drawing.Size(512, 22);
-=======
-            this.SBMain.Size = new System.Drawing.Size(327, 22);
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             this.SBMain.TabIndex = 0;
             // 
             // SBPMove
@@ -113,11 +99,7 @@
             this.SBPBlack.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
             this.SBPBlack.BorderStyle = System.Windows.Forms.StatusBarPanelBorderStyle.None;
             this.SBPBlack.Name = "SBPBlack";
-<<<<<<< HEAD
             this.SBPBlack.Width = 475;
-=======
-            this.SBPBlack.Width = 291;
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             // 
             // MIComputer
             // 
@@ -185,23 +167,15 @@
             this.MIEdit.Index = 1;
             this.MIEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.MIUndo,
-<<<<<<< HEAD
             this.MIRedo,
             this.MISeparator,
             this.MIPreferences});
-=======
-            this.MIRedo});
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             this.MIEdit.Text = "Edit";
             // 
             // MIAbout
             // 
             this.MIAbout.Index = 0;
-<<<<<<< HEAD
             this.MIAbout.Text = "About…";
-=======
-            this.MIAbout.Text = "About";
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             // 
             // MIHelp
             // 
@@ -217,7 +191,6 @@
             this.MIEdit,
             this.MIHelp});
             // 
-<<<<<<< HEAD
             // TCMain
             // 
             this.TCMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -374,13 +347,10 @@
             this.TSBPreferences.Text = "Preferences";
             this.TSBPreferences.Click += new System.EventHandler(this.TSBPreferences_Click);
             // 
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(512, 340);
             this.Controls.Add(this.TSMain);
@@ -393,22 +363,10 @@
             this.Text = "Chess";
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormMain_ResizeEnd);
-=======
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(327, 370);
-            this.Controls.Add(this.SBMain);
-            this.Menu = this.MenuMain;
-            this.MinimumSize = new System.Drawing.Size(335, 397);
-            this.Name = "FormMain";
-            this.Text = "Chess";
-            this.ResizeEnd += new System.EventHandler(this.FormMain_ResizeEnd);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseClick);
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.SBPMove)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPWhite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPBlack)).EndInit();
-<<<<<<< HEAD
             this.TCMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -416,9 +374,6 @@
             this.TSMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-=======
-            this.ResumeLayout(false);
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
 
         }
 
@@ -441,7 +396,6 @@
         private System.Windows.Forms.MenuItem MIAbout;
         private System.Windows.Forms.MenuItem MIHelp;
         private System.Windows.Forms.MainMenu MenuMain;
-<<<<<<< HEAD
         private System.Windows.Forms.TabControl TCMain;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel PBoard;
@@ -458,9 +412,6 @@
         private System.Windows.Forms.MenuItem MIPreferences;
         private System.Windows.Forms.ToolStripSeparator TSS2;
         private System.Windows.Forms.ToolStripButton TSBPreferences;
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
 
     }
 }
-

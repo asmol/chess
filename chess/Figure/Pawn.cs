@@ -37,12 +37,8 @@ namespace chess
                     for (int i = 0; i < between.Length; i++)
                         if (figures[between[i].Y, between[i].X] != null)
                             return false;
-<<<<<<< HEAD
                 int offset = team == ETeam.White ? to.Y+1 : to.Y-1;
                 if ((x == 0 && figures[to.Y, to.X] == null) || (x == 1 && absY == 1 && ((figures[to.Y, to.X] != null && figures[to.Y, to.X].Team != team) || (figures[offset,to.X] != null && figures[offset,to.X].Type == EType.Pawn && figures[offset,to.X].Team != team))))
-=======
-                if ((x == 0 && figures[to.Y, to.X] == null) || (x == 1 && absY == 1 && figures[to.Y, to.X] != null && figures[to.Y, to.X].Team != team))
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
                     return true;
             }
             return false;

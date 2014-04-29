@@ -44,11 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Abstract\IFormPromotion.cs" />
-    <Compile Include="Abstract\IRepository.cs" />
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
     <Compile Include="Abstract\ITurnProcessor.cs" />
     <Compile Include="Concrete\Computer\ComputerDefault.cs" />
     <Compile Include="Concrete\Game.cs" />
@@ -74,7 +70,6 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Abstract\IForm.cs" />
-<<<<<<< HEAD
     <Compile Include="FormPreferences.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,8 +82,6 @@
     <Compile Include="FormPromotion.Designer.cs">
       <DependentUpon>FormPromotion.cs</DependentUpon>
     </Compile>
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
     <Compile Include="Painter\IPainter.cs" />
     <Compile Include="Painter\PainterDefault\PainterDefault.cs" />
     <Compile Include="Painter\PainterDefault\Resources.Designer.cs">
@@ -96,14 +89,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
     <Compile Include="Struct\AreaF.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,34 +101,21 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="FormPreferences.resx">
       <DependentUpon>FormPreferences.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPromotion.resx">
       <DependentUpon>FormPromotion.cs</DependentUpon>
     </EmbeddedResource>
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
     <EmbeddedResource Include="Painter\PainterDefault\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-<<<<<<< HEAD
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-=======
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -152,13 +129,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <None Include="Resources\icons\new.png" />
   </ItemGroup>
-=======
-  <ItemGroup />
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
   <ItemGroup>
     <None Include="bin\Debug\images\horizontal.png" />
   </ItemGroup>
@@ -207,7 +180,6 @@
   <ItemGroup>
     <None Include="Painter\PainterDefault\images\white\rook.png" />
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <None Include="Resources\icons\open.png" />
   </ItemGroup>
@@ -235,8 +207,6 @@
   <ItemGroup>
     <None Include="Resources\icons\prefs.png" />
   </ItemGroup>
-=======
->>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
