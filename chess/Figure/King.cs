@@ -29,6 +29,7 @@ namespace chess
         {
             int x = Math.Abs(from.X-to.X),
                 y = Math.Abs(from.Y-to.Y);
+<<<<<<< HEAD
             Point[] between = AreaF.BetweenPoints(from,to);
             if ((x == 0 && y == 1) || ((x == 1 || (from.X == 4 && x == 2 && ((team == ETeam.White && to.Y == 7) || (team == ETeam.Black && to.Y == 0)))) && y == 0) || (x == 1 && y == 1))
             {
@@ -38,6 +39,11 @@ namespace chess
                 if (figures[to.Y,to.X] == null || (figures[to.Y,to.X] != null && figures[to.Y,to.X].Team != team))
                     return true;
             }
+=======
+            if ((x == 0 && y == 1) || (x == 1 && y == 0) || (x == 1 && y == 1))
+                if (figures[to.Y,to.X] == null || (figures[to.Y,to.X] != null && figures[to.Y,to.X].Team != team))
+                    return true;
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
             return false;
         }
     }

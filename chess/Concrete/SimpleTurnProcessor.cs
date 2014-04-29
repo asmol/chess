@@ -8,6 +8,7 @@ namespace chess
     class SimpleTurnProcessor:ITurnProcessor
     {
 
+<<<<<<< HEAD
         bool IsFigureBelongsTeam(IFigure figure, ETeam team)
         {
             return figure != null && figure.Team == team;
@@ -154,6 +155,8 @@ namespace chess
         }
 
         /*
+=======
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
         public ETurnResult CheckTurn(IFigure[,] field, ETeam team, Point2 from, Point2 to)
         {
             return CheckTurn(field, team, from, to, false);
@@ -195,6 +198,7 @@ namespace chess
                 else return ETurnResult.stalemate;
             }
         }
+<<<<<<< HEAD
         */
         IFigure[,] MimicTurn(IFigure[,] field, Point2 from, Point2 to)
         {
@@ -224,6 +228,19 @@ namespace chess
 
         bool IsPointUnderAttack(IFigure[,] field, Point2 point, ETeam enemy)
         {
+=======
+
+        void MimicTurn(IFigure[,] field, Point2 from, Point2 to)
+        {
+            IFigure figure = field[from.Y, from.X];
+            field[from.Y, from.X] = null;
+            field[to.Y, to.X] = figure;
+        }
+
+        bool IsKingUnderAttack(IFigure[,] field, ETeam team, ETeam enemy)
+        {
+            Point2 kingPoint = FindKing(field,team);
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
 
             int n = field.GetLength(0);
             int m = field.GetLength(1);
@@ -233,7 +250,11 @@ namespace chess
                 {
                     IFigure f = field[i, j];
                     if (f!= null && f.Team == enemy && f.CanReachTile(new Point(j, i)
+<<<<<<< HEAD
                         , new Point(point.X, point.Y), field))
+=======
+                        , new Point(kingPoint.X, kingPoint.Y), field))
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
                     {
                         return true;
                     }
@@ -255,7 +276,11 @@ namespace chess
             return new Point2(); // unreachable
         }
 
+<<<<<<< HEAD
         bool IsTeamHasNonProhibitedTurn(IFigure[,] field, ETeam team, Point2 prevFrom, Point2 prevTo)
+=======
+        bool IsTeamHasNonProhibitedTurn(IFigure[,] field, ETeam team)
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
         {
             int n = field.GetLength(0);
             int m = field.GetLength(1);
@@ -266,8 +291,13 @@ namespace chess
                     for (int ii = 0; ii < n; ii++)
                         for (int jj = 0; jj < m; jj++)
                         {
+<<<<<<< HEAD
                             if (IsAllowedTurn(field, team, new Point2(j, i), new Point2(jj, ii)
                                 , new List<IFigure>(), prevFrom, prevTo ))
+=======
+                            if (CheckTurn(field, team, new Point2(j, i), new Point2(jj, ii), true)
+                                != ETurnResult.prohibited)
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
                             {
                                 return true;
                             }
@@ -277,4 +307,8 @@ namespace chess
             return false;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439

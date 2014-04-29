@@ -12,10 +12,14 @@ namespace chess
 {
     public partial class FormMain : Form, IForm
     {
+<<<<<<< HEAD
         private readonly FormPreferences preferences = new FormPreferences();
         private readonly FormPromotion promotion = new FormPromotion();
 
         private readonly Size maxSize = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
+=======
+        private readonly Size maxClientSize = new Size(1920, 1080);
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
         private const int heightCorrection = 21;
 
         private Graphics canvas, screen;
@@ -24,18 +28,25 @@ namespace chess
 
         private FormWindowState lastWindowState = FormWindowState.Normal;
         private AreaF field;
+<<<<<<< HEAD
 
         private IFigure[,] figures;
         private bool boardReversed;
         private List<Point> selectedCells = new List<Point>();
         private Point selectedFigure = AreaF.Empty;
         private EPawnPromotion? promotionFigure;
+=======
+        private IFigure[,] figures;
+        private List<Point> selectedCells = new List<Point>();
+        private Point selectedFigure = AreaF.Empty;
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
 
         public FormMain()
         {
             InitializeComponent();
 
             Size oldClientSize = ClientSize;
+<<<<<<< HEAD
             ClientSize = maxSize;
             screen = PBoard.CreateGraphics();
             bitmap = new Bitmap(ClientSize.Width,ClientSize.Height);
@@ -60,6 +71,15 @@ namespace chess
         private void FormMain_Shown(object sender, EventArgs e)
         {
             Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width-Size.Width)/2,(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height-Size.Height)/2);
+=======
+            ClientSize = maxClientSize;
+            screen = CreateGraphics();
+            bitmap = new Bitmap(ClientSize.Width, ClientSize.Height);
+            canvas = Graphics.FromImage(bitmap);
+            canvas.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            painter = new PainterDefault();
+            ClientSize = new Size(oldClientSize.Width, oldClientSize.Height - heightCorrection);
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
         }
 
         private void FormMain_Resize(object sender, EventArgs e)
@@ -76,6 +96,7 @@ namespace chess
             draw();
         }
 
+<<<<<<< HEAD
         #endregion
         #region Обработчики событий компонентов
 
@@ -87,6 +108,16 @@ namespace chess
                 if (selectedFigure == AreaF.Empty)
                 {
                     if (figures[!boardReversed ? selectedCell.Y : AreaF.ReverseCell(selectedCell.Y),!boardReversed ? selectedCell.X : AreaF.ReverseCell(selectedCell.X)] != null)
+=======
+        private void FormMain_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (field.InArea(e.Location))
+            {
+                Point selectedCell = new Point((int)Math.Floor((e.X - field.Position.X) / (field.Size.Width / 8)), (int)Math.Floor((e.Y - field.Position.Y) / (field.Size.Height / 8)));
+                if (selectedFigure == AreaF.Empty)
+                {
+                    if (figures[selectedCell.Y, selectedCell.X] != null)
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
                     {
                         selectedFigure = selectedCell;
                         selectedCells.Clear();
@@ -99,7 +130,11 @@ namespace chess
                     selectedFigure = AreaF.Empty;
                     selectedCells.Add(selectedCell);
                     if (FigureMoved != null)
+<<<<<<< HEAD
                         FigureMoved(this,new FigureMovedEventArgs(!boardReversed ? selectedCells[0] : AreaF.ReverseCell(selectedCells[0]),!boardReversed ? selectedCells[1] : AreaF.ReverseCell(selectedCells[1])));
+=======
+                        FigureMoved(this, new FigureMovedEventArgs(selectedCells[0],selectedCells[1]));
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
                 }
             }
         }
@@ -114,6 +149,7 @@ namespace chess
             MoveRepeated(this,new EventArgs());
         }
 
+<<<<<<< HEAD
         private void MIPreferences_Click(object sender, EventArgs e)
         {
             preferences.ShowDialog();
@@ -146,10 +182,41 @@ namespace chess
             draw();
 
             // SBPMove.Text = "Move #"+currentMove+": "+(activePlayer == 0 ? "white" : "black")+"'s turn"; // TODO: вызывать из Game с помощью Invoke
+=======
+        private void draw()
+        {
+            if (canvas == null)
+                return;
+            field = painter.Draw(canvas,new Size(ClientSize.Width,ClientSize.Height-heightCorrection),figures,selectedCells);
+            screen.DrawImage(bitmap,new Point(0,0));
+        }
+
+        public event FigureMovedHandler FigureMoved;
+        public event MoveCancelledHandler MoveCancelled;
+        public event MoveRepeatedHandler MoveRepeated;
+
+        private List<Point> detectChanges(IFigure[,] figures)
+        {
+            List<Point> result = new List<Point>();
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                    if (this.figures[i,j] != figures[i,j])
+                        result.Add(new Point(j,i));
+            return result;
+        }
+
+        public void DrawBoard(IFigure[,] figures)
+        {
+            if (this.figures != null)
+                selectedCells = detectChanges(figures);
+            this.figures = (IFigure[,])figures.Clone();
+            draw();
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
         }
 
         public void UpdateData(Player[] players, int activePlayer, int currentMove)
         {
+<<<<<<< HEAD
             if (activePlayer == 0)
             {
                 TimeSpan white = TimeSpan.FromSeconds(players[0].Time);
@@ -215,5 +282,13 @@ namespace chess
         }
 
         #endregion
+=======
+            TimeSpan white = TimeSpan.FromSeconds(players[0].Time),
+                black = TimeSpan.FromSeconds(players[1].Time);
+            SBPMove.Text = "Move #"+currentMove+": "+(activePlayer == 0 ? "white" : "black")+"'s turn";
+            SBPWhite.Text = "White: "+white.Minutes+":"+white.Seconds;
+            SBPBlack.Text = "Black: "+black.Minutes+":"+black.Seconds;
+        }
+>>>>>>> 87d586307a4356bd8125dbb16bd6b8b14a1cd439
     }
 }
