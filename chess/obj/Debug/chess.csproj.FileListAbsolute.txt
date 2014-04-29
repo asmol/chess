@@ -88,3 +88,18 @@ D:\Временное\chessrep\chess\obj\Debug\chess.FormMain.resources
 D:\Временное\chessrep\chess\obj\Debug\chess.Painter.PainterDefault.Resources.resources
 D:\Временное\chessrep\chess\obj\Debug\chess.Properties.Resources.resources
 D:\Временное\chessrep\chess\obj\Debug\chess.csproj.GenerateResource.Cache
+D:\Временное\chessrep\chess\obj\Debug\chess.FormPreferences.resources
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\bin\Debug\chess.exe.config
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.exe
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.pdb
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\ResolveAssemblyReference.cache
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.FormMain.resources
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.FormPreferences.resources
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.Painter.PainterDefault.Resources.resources
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.Properties.Resources.resources
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\GenerateResource.read.1.tlog
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\GenerateResource.write.1.tlog
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\bin\Debug\chess.exe
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\bin\Debug\chess.pdb
+Z:\Profile\Дисциплины\ООП\ATT 2\chess\chess\obj\Debug\chess.FormPromotion.resources
+D:\Временное\chessrep\chess\obj\Debug\chess.FormPromotion.resources

@@ -93,6 +93,16 @@ namespace chess.Painter.PainterDefault {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DigitsReversed {
+            get {
+                object obj = ResourceManager.GetObject("DigitsReversed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap KingBlack {
             get {
                 object obj = ResourceManager.GetObject("KingBlack", resourceCulture);
@@ -136,6 +146,16 @@ namespace chess.Painter.PainterDefault {
         internal static System.Drawing.Bitmap Letters {
             get {
                 object obj = ResourceManager.GetObject("Letters", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LettersReversed {
+            get {
+                object obj = ResourceManager.GetObject("LettersReversed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

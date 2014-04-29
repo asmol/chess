@@ -51,13 +51,17 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PBoard = new System.Windows.Forms.Panel();
             this.TSMain = new System.Windows.Forms.ToolStrip();
+            this.TSS1 = new System.Windows.Forms.ToolStripSeparator();
+            this.MIPreferences = new System.Windows.Forms.MenuItem();
+            this.MISeparator = new System.Windows.Forms.MenuItem();
+            this.TSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBComputer = new System.Windows.Forms.ToolStripButton();
             this.TSBHuman = new System.Windows.Forms.ToolStripButton();
             this.TSBOpen = new System.Windows.Forms.ToolStripButton();
             this.TSBSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBUndo = new System.Windows.Forms.ToolStripButton();
             this.TSBRedo = new System.Windows.Forms.ToolStripButton();
+            this.TSBPreferences = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.SBPMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPWhite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPBlack)).BeginInit();
@@ -163,13 +167,15 @@
             this.MIEdit.Index = 1;
             this.MIEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.MIUndo,
-            this.MIRedo});
+            this.MIRedo,
+            this.MISeparator,
+            this.MIPreferences});
             this.MIEdit.Text = "Edit";
             // 
             // MIAbout
             // 
             this.MIAbout.Index = 0;
-            this.MIAbout.Text = "About";
+            this.MIAbout.Text = "About…";
             // 
             // MIHelp
             // 
@@ -241,15 +247,39 @@
             this.TSBHuman,
             this.TSBOpen,
             this.TSBSave,
-            this.toolStripSeparator1,
+            this.TSS1,
             this.TSBUndo,
-            this.TSBRedo});
+            this.TSBRedo,
+            this.TSS2,
+            this.TSBPreferences});
             this.TSMain.Location = new System.Drawing.Point(0, 0);
             this.TSMain.Name = "TSMain";
             this.TSMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.TSMain.Size = new System.Drawing.Size(512, 25);
             this.TSMain.TabIndex = 3;
             this.TSMain.Text = "toolStrip1";
+            // 
+            // TSS1
+            // 
+            this.TSS1.Name = "TSS1";
+            this.TSS1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // MIPreferences
+            // 
+            this.MIPreferences.Index = 3;
+            this.MIPreferences.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
+            this.MIPreferences.Text = "Preferences…";
+            this.MIPreferences.Click += new System.EventHandler(this.MIPreferences_Click);
+            // 
+            // MISeparator
+            // 
+            this.MISeparator.Index = 2;
+            this.MISeparator.Text = "-";
+            // 
+            // TSS2
+            // 
+            this.TSS2.Name = "TSS2";
+            this.TSS2.Size = new System.Drawing.Size(6, 25);
             // 
             // TSBComputer
             // 
@@ -287,11 +317,6 @@
             this.TSBSave.Size = new System.Drawing.Size(23, 22);
             this.TSBSave.Text = "Save";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // TSBUndo
             // 
             this.TSBUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -311,6 +336,16 @@
             this.TSBRedo.Size = new System.Drawing.Size(23, 22);
             this.TSBRedo.Text = "Redo";
             this.TSBRedo.Click += new System.EventHandler(this.TSBRedo_Click);
+            // 
+            // TSBPreferences
+            // 
+            this.TSBPreferences.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSBPreferences.Image = global::chess.Properties.Resources.Preferences;
+            this.TSBPreferences.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSBPreferences.Name = "TSBPreferences";
+            this.TSBPreferences.Size = new System.Drawing.Size(23, 22);
+            this.TSBPreferences.Text = "Preferences";
+            this.TSBPreferences.Click += new System.EventHandler(this.TSBPreferences_Click);
             // 
             // FormMain
             // 
@@ -368,11 +403,15 @@
         private System.Windows.Forms.ToolStrip TSMain;
         private System.Windows.Forms.ToolStripButton TSBOpen;
         private System.Windows.Forms.ToolStripButton TSBSave;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator TSS1;
         private System.Windows.Forms.ToolStripButton TSBUndo;
         private System.Windows.Forms.ToolStripButton TSBRedo;
         private System.Windows.Forms.ToolStripButton TSBComputer;
         private System.Windows.Forms.ToolStripButton TSBHuman;
+        private System.Windows.Forms.MenuItem MISeparator;
+        private System.Windows.Forms.MenuItem MIPreferences;
+        private System.Windows.Forms.ToolStripSeparator TSS2;
+        private System.Windows.Forms.ToolStripButton TSBPreferences;
 
     }
 }

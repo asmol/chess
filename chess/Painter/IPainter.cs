@@ -8,6 +8,6 @@ namespace chess
 {
     interface IPainter
     {
-        AreaF Draw(Graphics canvas, Size clientSize, IFigure[,] figures, List<Point> selectedCells);
+        AreaF Draw(Graphics canvas, Size clientSize, IFigure[,] figures, List<Point> selectedCells, bool boardReversed = false);
     }
 }

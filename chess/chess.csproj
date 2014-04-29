@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IFormPromotion.cs" />
+    <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\ITurnProcessor.cs" />
     <Compile Include="Concrete\Computer\ComputerDefault.cs" />
     <Compile Include="Concrete\Game.cs" />
@@ -69,6 +71,18 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Abstract\IForm.cs" />
+    <Compile Include="FormPreferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPreferences.Designer.cs">
+      <DependentUpon>FormPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPromotion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPromotion.Designer.cs">
+      <DependentUpon>FormPromotion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Painter\IPainter.cs" />
     <Compile Include="Painter\PainterDefault\PainterDefault.cs" />
     <Compile Include="Painter\PainterDefault\Resources.Designer.cs">
@@ -87,6 +101,12 @@
     <Compile Include="Struct\Point2.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPreferences.resx">
+      <DependentUpon>FormPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPromotion.resx">
+      <DependentUpon>FormPromotion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Painter\PainterDefault\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -178,6 +198,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Painter\PainterDefault\images\digits_reversed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Painter\PainterDefault\images\letters_reversed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\prefs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

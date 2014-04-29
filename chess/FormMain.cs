@@ -12,6 +12,9 @@ namespace chess
 {
     public partial class FormMain : Form, IForm
     {
+        private readonly FormPreferences preferences = new FormPreferences();
+        private readonly FormPromotion promotion = new FormPromotion();
+
         private readonly Size maxSize = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
         private const int heightCorrection = 21;
 
@@ -21,9 +24,12 @@ namespace chess
 
         private FormWindowState lastWindowState = FormWindowState.Normal;
         private AreaF field;
+
         private IFigure[,] figures;
+        private bool boardReversed;
         private List<Point> selectedCells = new List<Point>();
         private Point selectedFigure = AreaF.Empty;
+        private EPawnPromotion? promotionFigure;
 
         public FormMain()
         {
@@ -38,7 +44,18 @@ namespace chess
             painter = new PainterDefault(PBoard.BackColor);
             ClientSize = new Size(oldClientSize.Width,oldClientSize.Height-heightCorrection);
             MaximumSize = maxSize;
+
+            promotion.FigureChosen += promotionFigureChosen;
         }
+
+        #region События формы
+
+        public event FigureMovedHandler FigureMoved;
+        public event MoveCancelledHandler MoveCancelled;
+        public event MoveRepeatedHandler MoveRepeated;
+
+        #endregion
+        #region Обработчики событий формы
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
@@ -59,14 +76,17 @@ namespace chess
             draw();
         }
 
+        #endregion
+        #region Обработчики событий компонентов
+
         private void PBoard_MouseClick(object sender, MouseEventArgs e)
         {
             if (field.InArea(e.Location))
             {
-                Point selectedCell = new Point((int)Math.Floor((e.X - field.Position.X) / (field.Size.Width / 8)), (int)Math.Floor((e.Y - field.Position.Y) / (field.Size.Height / 8)));
+                Point selectedCell = new Point((int)Math.Floor((e.X-field.Position.X)/(field.Size.Width/8)),(int)Math.Floor((e.Y-field.Position.Y)/(field.Size.Height/8)));
                 if (selectedFigure == AreaF.Empty)
                 {
-                    if (figures[selectedCell.Y, selectedCell.X] != null)
+                    if (figures[!boardReversed ? selectedCell.Y : AreaF.ReverseCell(selectedCell.Y),!boardReversed ? selectedCell.X : AreaF.ReverseCell(selectedCell.X)] != null)
                     {
                         selectedFigure = selectedCell;
                         selectedCells.Clear();
@@ -79,7 +99,7 @@ namespace chess
                     selectedFigure = AreaF.Empty;
                     selectedCells.Add(selectedCell);
                     if (FigureMoved != null)
-                        FigureMoved(this, new FigureMovedEventArgs(selectedCells[0],selectedCells[1]));
+                        FigureMoved(this,new FigureMovedEventArgs(!boardReversed ? selectedCells[0] : AreaF.ReverseCell(selectedCells[0]),!boardReversed ? selectedCells[1] : AreaF.ReverseCell(selectedCells[1])));
                 }
             }
         }
@@ -94,51 +114,68 @@ namespace chess
             MoveRepeated(this,new EventArgs());
         }
 
+        private void MIPreferences_Click(object sender, EventArgs e)
+        {
+            preferences.ShowDialog();
+        }
+
         private void TSBUndo_Click(object sender, EventArgs e)
         {
-            MIUndo_Click(null,null);
+            MoveCancelled(this,new EventArgs());
         }
 
         private void TSBRedo_Click(object sender, EventArgs e)
         {
-            MIRedo_Click(null,null);
+            MoveRepeated(this,new EventArgs());
         }
 
-        private void draw()
+        private void TSBPreferences_Click(object sender, EventArgs e)
         {
-            field = painter.Draw(canvas,PBoard.Size,figures,selectedCells);
-            screen.DrawImage(bitmap,new Point(0,0));
+            preferences.ShowDialog();
         }
 
-        public event FigureMovedHandler FigureMoved;
-        public event MoveCancelledHandler MoveCancelled;
-        public event MoveRepeatedHandler MoveRepeated;
+        #endregion
+        #region Обработчики событий игры
 
-        private List<Point> detectChanges(IFigure[,] figures)
+        public void DrawBoard(IFigure[,] figures, bool reverse, List<Turn> moves, int activePlayer, int currentMove)
         {
-            List<Point> result = new List<Point>();
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                    if (this.figures[i,j] != figures[i,j])
-                        result.Add(new Point(j,i));
-            return result;
-        }
-
-        public void DrawBoard(IFigure[,] figures, List<Turn> moves, int currentMove)
-        {
-            if (this.figures != null)
-                selectedCells = detectChanges(figures);
+            if (reverse)
+                boardReversed = !boardReversed;
+            selectedCells = detectChanges(figures);
             this.figures = (IFigure[,])figures.Clone();
             draw();
+
+            // SBPMove.Text = "Move #"+currentMove+": "+(activePlayer == 0 ? "white" : "black")+"'s turn"; // TODO: вызывать из Game с помощью Invoke
         }
 
         public void UpdateData(Player[] players, int activePlayer, int currentMove)
         {
-            TimeSpan white = TimeSpan.FromSeconds(players[0].Time),
-                black = TimeSpan.FromSeconds(players[1].Time);
-            SBPMove.Text = "Move #"+currentMove+": "+(activePlayer == 0 ? "white" : "black")+"'s turn";
-            SBPWhite.Text = "White: "+white.Minutes+":"+white.Seconds;
-            SBPBlack.Text = "Black: "+black.Minutes+":"+black.Seconds;
+            if (activePlayer == 0)
+            {
+                TimeSpan white = TimeSpan.FromSeconds(players[0].Time);
+                SBPWhite.Text = "White: "+white.Minutes+":"+white.Seconds;
+            }
+            else
+            {
+                TimeSpan black = TimeSpan.FromSeconds(players[1].Time);
+                SBPBlack.Text = "Black: "+black.Minutes+":"+black.Seconds;
+            }
+        }
+
+        private void showPromotionDialog() // Решение проблемы с потоком
+        {
+            if (this.InvokeRequired)
+                this.Invoke((MethodInvoker)delegate() {showPromotionDialog();});
+            else
+                promotion.ShowDialog();
+        }
+
+        public EPawnPromotion ChoosePawnPromotion()
+        {
+            promotionFigure = null;
+            showPromotionDialog();
+            while (promotionFigure == null);
+            return promotionFigure ?? EPawnPromotion.Queen;
         }
 
         /* TODO:
@@ -146,5 +183,37 @@ namespace chess
         {
 
         }*/
+
+        #endregion
+        #region Обработчики прочих событий
+
+        private void promotionFigureChosen(object sender, FigureChosenEventArgs e)
+        {
+            promotionFigure = e.Figure;
+        }
+
+        #endregion
+        #region Основные методы
+
+        private void draw()
+        {
+            if (this.figures == null)
+                return;
+            field = painter.Draw(canvas,PBoard.Size,figures,selectedCells,boardReversed);
+            screen.DrawImage(bitmap,new Point(0,0));
+        }
+
+        private List<Point> detectChanges(IFigure[,] figures)
+        {
+            List<Point> result = new List<Point>();
+            if (this.figures != null)
+                for (int i = 0; i < 8; i++)
+                    for (int j = 0; j < 8; j++)
+                        if (this.figures[i,j] != figures[i,j])
+                            result.Add(!boardReversed ? new Point(j,i) : AreaF.ReverseCell(new Point(j,i)));
+            return result;
+        }
+
+        #endregion
     }
 }

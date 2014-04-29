@@ -22,6 +22,7 @@ namespace chess
             Game game = new Game(form,  CreatePlayers(), new SimpleTurnProcessor());
             Thread gameThread = new Thread(new ThreadStart(game.StartGame));
             gameThread.IsBackground = true;
+            gameThread.SetApartmentState(ApartmentState.STA);
             gameThread.Start();
 
             Application.Run(form);
@@ -34,7 +35,7 @@ namespace chess
             return new Player[]{
                 new Player(ETeam.White,  600),
                 //new Player(ETeam.Black,600)
-                new ComputerDefault(ETeam.Black,  600)
+                new Player(ETeam.Black,  600)
             };
         }
     }

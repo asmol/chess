@@ -10,19 +10,20 @@ namespace chess
 {
     public class Player
     {
-        public List<IFigure> LostFigures {get;set;}
+
         protected ETeam _team;
         protected int _timeLeft;
+        protected int _timeStart;
 
         protected Point2? _lastUsersTurnTo=null, _lastUsersTurnFrom=null;
         protected bool _userCancelledTurn = false;
         protected bool _userRepeatedTurn = false;
 
-        public Player(ETeam team,  int time)
+        public Player(ETeam team,  int startTime)
         {
             _team = team;
-            _timeLeft = time;
-            LostFigures = new List<IFigure>();
+            _timeLeft = startTime;
+            _timeStart = startTime;
         }
 
         //потокобезопасность, как заблокировать эти 3 переменные до выполнения команды?
@@ -84,6 +85,7 @@ namespace chess
             _userRepeatedTurn = true;
         }
         public ETeam Team { get { return _team; } }
+        public int StartTime { get { return _timeStart; } }
         public int Time { get { return _timeLeft; } }
     }
 }

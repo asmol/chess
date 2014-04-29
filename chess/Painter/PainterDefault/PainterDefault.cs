@@ -27,7 +27,7 @@ namespace chess
             cell.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
         }
 
-        public AreaF Draw(Graphics canvas, Size clientSize, IFigure[,] figures, List<Point> selectedCells)
+        public AreaF Draw(Graphics canvas, Size clientSize, IFigure[,] figures, List<Point> selectedCells, bool boardReversed = false)
         {
             cellSize = (float)Math.Min(clientSize.Width,clientSize.Height)/9;
             halfCellSize = cellSize/2;
@@ -37,27 +37,28 @@ namespace chess
                 startPoint = new PointF(startPoint.Y,startPoint.X);
             fieldStartPoint = new PointF(startPoint.X+halfCellSize,startPoint.Y+halfCellSize);
             canvas.Clear(background);
-            AreaF result = drawBoard(canvas,selectedCells);
-            drawFigures(canvas,figures);
+            AreaF result = drawBoard(canvas,selectedCells,boardReversed);
+            drawFigures(canvas,figures,boardReversed);
             return result;
         }
 
-        private AreaF drawBoard(Graphics canvas, List<Point> selectedCells)
+        private AreaF drawBoard(Graphics canvas, List<Point> selectedCells, bool reversed)
         {
             float boardSize = cellSize*9;
             canvas.FillRectangle(white,startPoint.X,startPoint.Y,boardSize,boardSize);
             float fieldSize = cellSize*8;
-            canvas.DrawImage(Resources.Letters,fieldStartPoint.X,startPoint.Y,fieldSize,halfCellSize);
-            canvas.DrawImage(Resources.Letters,fieldStartPoint.X,startPoint.Y+fieldSize+halfCellSize,fieldSize,halfCellSize);
-            canvas.DrawImage(Resources.Digits,startPoint.X,fieldStartPoint.Y,halfCellSize,fieldSize);
-            canvas.DrawImage(Resources.Digits,startPoint.X+fieldSize+halfCellSize,fieldStartPoint.Y,halfCellSize,fieldSize);
-            bool color = false;
+            Bitmap digits = !reversed ? Resources.Digits : Resources.DigitsReversed,
+                letters = !reversed ? Resources.Letters : Resources.LettersReversed;
+            canvas.DrawImage(letters,fieldStartPoint.X,startPoint.Y,fieldSize,halfCellSize);
+            canvas.DrawImage(letters,fieldStartPoint.X,startPoint.Y+fieldSize+halfCellSize,fieldSize,halfCellSize);
+            canvas.DrawImage(digits,startPoint.X,fieldStartPoint.Y,halfCellSize,fieldSize);
+            canvas.DrawImage(digits,startPoint.X+fieldSize+halfCellSize,fieldStartPoint.Y,halfCellSize,fieldSize);
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    canvas.FillRectangle(color?black:white,j*cellSize+fieldStartPoint.X,i*cellSize+fieldStartPoint.Y,cellSize,cellSize);
+                    canvas.FillRectangle(reversed ? black : white,j*cellSize+fieldStartPoint.X,i*cellSize+fieldStartPoint.Y,cellSize,cellSize);
                     if (j != 7)
-                        color = !color;
+                        reversed = !reversed;
                 }
             border.Width = cellSize/32;
             AreaF result = new AreaF(new PointF(fieldStartPoint.X,fieldStartPoint.Y),new SizeF(fieldSize,fieldSize));
@@ -68,7 +69,7 @@ namespace chess
             return result;
         }
 
-        private void drawFigures(Graphics canvas, IFigure[,] figures)
+        private void drawFigures(Graphics canvas, IFigure[,] figures, bool boardReversed)
         {
             for (int i = 0; i < figures.GetLength(0); i++)
                 for (int j = 0; j < figures.GetLength(1); j++)
@@ -100,7 +101,7 @@ namespace chess
                             }
                             break;
                     }
-                    canvas.DrawImage(figure,j*cellSize+fieldStartPoint.X,i*cellSize+fieldStartPoint.Y,cellSize,cellSize);
+                    canvas.DrawImage(figure,(!boardReversed ? j : AreaF.ReverseCell(j))*cellSize+fieldStartPoint.X,(!boardReversed ? i : AreaF.ReverseCell(i))*cellSize+fieldStartPoint.Y,cellSize,cellSize);
                 }
         }
     }

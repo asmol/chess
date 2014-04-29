@@ -29,9 +29,15 @@ namespace chess
         {
             int x = Math.Abs(from.X-to.X),
                 y = Math.Abs(from.Y-to.Y);
-            if ((x == 0 && y == 1) || (x == 1 && y == 0) || (x == 1 && y == 1))
+            Point[] between = AreaF.BetweenPoints(from,to);
+            if ((x == 0 && y == 1) || ((x == 1 || (from.X == 4 && x == 2 && ((team == ETeam.White && to.Y == 7) || (team == ETeam.Black && to.Y == 0)))) && y == 0) || (x == 1 && y == 1))
+            {
+                for (int i = 0; i < between.Length; i++)
+                    if (figures[between[i].Y,between[i].X] != null)
+                        return false;
                 if (figures[to.Y,to.X] == null || (figures[to.Y,to.X] != null && figures[to.Y,to.X].Team != team))
                     return true;
+            }
             return false;
         }
     }
