@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IFormPromotion.cs" />
-    <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\ITurnProcessor.cs" />
     <Compile Include="Concrete\Computer\ComputerDefault.cs" />
     <Compile Include="Concrete\Game.cs" />
