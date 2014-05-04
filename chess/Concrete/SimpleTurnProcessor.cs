@@ -7,6 +7,20 @@ namespace chess
 {
     class SimpleTurnProcessor:ITurnProcessor
     {
+        public bool IsCapture(IFigure[,] field, Point2 from, Point2 to)
+        {
+            return field[to.Y,to.X] != null && (field[from.Y,from.X].Team != field[to.Y,to.X].Team);
+        }
+
+        public bool IsCheck(IFigure[,] field, ETeam enemy)
+        {
+            return IsPointUnderAttack(field,FindKing(field,EnemyTeam(enemy)),enemy);
+        }
+
+        public ETeam EnemyTeam(ETeam team)
+        {
+            return team == ETeam.White ? ETeam.Black : ETeam.White;
+        }
 
         bool IsFigureBelongsTeam(IFigure figure, ETeam team)
         {
@@ -20,7 +34,12 @@ namespace chess
                 );
         }
 
-        bool IsCastling(IFigure figure,  Point2 from, Point2 to)
+        public bool IsKingsideCastling(int fromX, int toX)
+        {
+            return fromX-toX == -2;
+        }
+
+        public bool IsCastling(IFigure figure,  Point2 from, Point2 to)
         {
             return figure.Type == EType.King && Math.Abs(from.X - to.X) == 2;
         }
@@ -49,7 +68,7 @@ namespace chess
             return false;
         }
 
-        bool IsPassantCapture(IFigure[,] field,  Point2 from, Point2 to)
+        public bool IsPassantCapture(IFigure[,] field,  Point2 from, Point2 to)
         {
             IFigure figure = field[from.Y, from.X];
             return figure.Type == EType.Pawn && to.X != from.X && field[to.Y, to.X] == null;
@@ -75,6 +94,27 @@ namespace chess
             return false;
         }
 
+        public bool IsAllowedTurnLight(IFigure[,] field, ETeam team, Point2 from, Point2 to)
+        {
+            if (IsFigureCanReachTile(field,from,to))
+            {
+                IFigure[,] newField = MimicTurn(field,from,to);
+                if (IsPointUnderAttack(newField,FindKing(newField,team),EnemyTeam(team)))
+                    return false;
+                return true;
+            }
+            return false;
+        }
+
+        public List<Point2> FiguresOfType(IFigure[,] field, EType type, ETeam team)
+        {
+            List<Point2> result = new List<Point2>();
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                    if (field[i,j] != null && field[i,j].Type == type && field[i,j].Team == team)
+                        result.Add(new Point2(j,i));
+            return result;
+        }
 
         public bool IsAllowedTurn(IFigure[,] field, ETeam team, Point2 from, Point2 to
             , List<IFigure> movedKingsOrRooks, Point2 lastEnemyTurnFrom, Point2 lastEnemyTurnTo)
@@ -222,6 +262,37 @@ namespace chess
             return newField;
         }
 
+        public IFigure[,] SimulateMove(IFigure[,] field, Point2 from, Point2 to, EPawnPromotion? promotion)
+        {
+            IFigure[,] newField = (IFigure[,])field.Clone();
+            IFigure figure = newField[from.Y,from.X];
+
+            newField[from.Y,from.X] = null;
+            newField[to.Y,to.X] = figure;
+
+            if (IsPassantCapture(field,from,to))
+                newField[from.Y,to.X] = null;
+            if (IsCastling(figure,from,to))
+            {
+                Point2 moveRookFrom = from.X > to.X ? new Point2(0, from.Y) : new Point2(field.GetLength(1)-1,from.Y);
+                newField[from.Y,(from.X+to.X)/2] = newField[moveRookFrom.Y,moveRookFrom.X];
+                newField[moveRookFrom.Y,moveRookFrom.X] = null;
+            }
+            if (promotion != null)
+            {
+                ETeam team = newField[to.Y,to.X].Team;
+                IFigure replacement = new Queen(team);
+                switch (promotion)
+                {
+                    case EPawnPromotion.Rook: replacement = new Rook(team); break;
+                    case EPawnPromotion.Bishop: replacement = new Bishop(team); break;
+                    case EPawnPromotion.Knight: replacement = new Knight(team); break;
+                }
+                newField[to.Y,to.X] = replacement;
+            }
+            return newField;
+        }
+
         bool IsPointUnderAttack(IFigure[,] field, Point2 point, ETeam enemy)
         {
 
@@ -255,7 +326,7 @@ namespace chess
             return new Point2(); // unreachable
         }
 
-        bool IsTeamHasNonProhibitedTurn(IFigure[,] field, ETeam team, Point2 prevFrom, Point2 prevTo)
+        public bool IsTeamHasNonProhibitedTurn(IFigure[,] field, ETeam team, Point2 prevFrom, Point2 prevTo)
         {
             int n = field.GetLength(0);
             int m = field.GetLength(1);

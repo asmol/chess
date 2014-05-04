@@ -43,30 +43,30 @@
             this.MIUndo = new System.Windows.Forms.MenuItem();
             this.MIRedo = new System.Windows.Forms.MenuItem();
             this.MIEdit = new System.Windows.Forms.MenuItem();
+            this.MISeparator = new System.Windows.Forms.MenuItem();
+            this.MIPreferences = new System.Windows.Forms.MenuItem();
             this.MIAbout = new System.Windows.Forms.MenuItem();
             this.MIHelp = new System.Windows.Forms.MenuItem();
             this.MenuMain = new System.Windows.Forms.MainMenu(this.components);
             this.TCMain = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TPHistory = new System.Windows.Forms.TabPage();
+            this.TBHistory = new System.Windows.Forms.TextBox();
             this.PBoard = new System.Windows.Forms.Panel();
             this.TSMain = new System.Windows.Forms.ToolStrip();
-            this.TSS1 = new System.Windows.Forms.ToolStripSeparator();
-            this.MIPreferences = new System.Windows.Forms.MenuItem();
-            this.MISeparator = new System.Windows.Forms.MenuItem();
-            this.TSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBComputer = new System.Windows.Forms.ToolStripButton();
             this.TSBHuman = new System.Windows.Forms.ToolStripButton();
             this.TSBOpen = new System.Windows.Forms.ToolStripButton();
             this.TSBSave = new System.Windows.Forms.ToolStripButton();
+            this.TSS1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBUndo = new System.Windows.Forms.ToolStripButton();
             this.TSBRedo = new System.Windows.Forms.ToolStripButton();
+            this.TSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBPreferences = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.SBPMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPWhite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPBlack)).BeginInit();
             this.TCMain.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.TPHistory.SuspendLayout();
             this.TSMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,12 +129,14 @@
             // 
             // MISave
             // 
+            this.MISave.Enabled = false;
             this.MISave.Index = 2;
             this.MISave.Shortcut = System.Windows.Forms.Shortcut.CtrlS;
             this.MISave.Text = "Save";
             // 
             // MISaveAs
             // 
+            this.MISaveAs.Enabled = false;
             this.MISaveAs.Index = 3;
             this.MISaveAs.Text = "Save as…";
             // 
@@ -172,10 +174,23 @@
             this.MIPreferences});
             this.MIEdit.Text = "Edit";
             // 
+            // MISeparator
+            // 
+            this.MISeparator.Index = 2;
+            this.MISeparator.Text = "-";
+            // 
+            // MIPreferences
+            // 
+            this.MIPreferences.Index = 3;
+            this.MIPreferences.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
+            this.MIPreferences.Text = "Preferences…";
+            this.MIPreferences.Click += new System.EventHandler(this.MIPreferences_Click);
+            // 
             // MIAbout
             // 
             this.MIAbout.Index = 0;
             this.MIAbout.Text = "About…";
+            this.MIAbout.Click += new System.EventHandler(this.MIAbout_Click);
             // 
             // MIHelp
             // 
@@ -195,37 +210,37 @@
             // 
             this.TCMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TCMain.Controls.Add(this.tabPage1);
+            this.TCMain.Controls.Add(this.TPHistory);
             this.TCMain.Location = new System.Drawing.Point(272, 32);
             this.TCMain.Name = "TCMain";
             this.TCMain.SelectedIndex = 0;
             this.TCMain.Size = new System.Drawing.Size(232, 277);
             this.TCMain.TabIndex = 1;
             // 
-            // tabPage1
+            // TPHistory
             // 
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(224, 251);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "History";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.TPHistory.Controls.Add(this.TBHistory);
+            this.TPHistory.Location = new System.Drawing.Point(4, 22);
+            this.TPHistory.Name = "TPHistory";
+            this.TPHistory.Padding = new System.Windows.Forms.Padding(3);
+            this.TPHistory.Size = new System.Drawing.Size(224, 251);
+            this.TPHistory.TabIndex = 0;
+            this.TPHistory.Text = "History";
+            this.TPHistory.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // TBHistory
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TBHistory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(8, 8);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(208, 235);
-            this.textBox1.TabIndex = 0;
+            this.TBHistory.BackColor = System.Drawing.SystemColors.Control;
+            this.TBHistory.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TBHistory.Location = new System.Drawing.Point(8, 8);
+            this.TBHistory.Multiline = true;
+            this.TBHistory.Name = "TBHistory";
+            this.TBHistory.ReadOnly = true;
+            this.TBHistory.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TBHistory.Size = new System.Drawing.Size(208, 235);
+            this.TBHistory.TabIndex = 0;
             // 
             // PBoard
             // 
@@ -259,28 +274,6 @@
             this.TSMain.TabIndex = 3;
             this.TSMain.Text = "toolStrip1";
             // 
-            // TSS1
-            // 
-            this.TSS1.Name = "TSS1";
-            this.TSS1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // MIPreferences
-            // 
-            this.MIPreferences.Index = 3;
-            this.MIPreferences.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
-            this.MIPreferences.Text = "Preferences…";
-            this.MIPreferences.Click += new System.EventHandler(this.MIPreferences_Click);
-            // 
-            // MISeparator
-            // 
-            this.MISeparator.Index = 2;
-            this.MISeparator.Text = "-";
-            // 
-            // TSS2
-            // 
-            this.TSS2.Name = "TSS2";
-            this.TSS2.Size = new System.Drawing.Size(6, 25);
-            // 
             // TSBComputer
             // 
             this.TSBComputer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -311,15 +304,22 @@
             // TSBSave
             // 
             this.TSBSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSBSave.Enabled = false;
             this.TSBSave.Image = global::chess.Properties.Resources.Save;
             this.TSBSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TSBSave.Name = "TSBSave";
             this.TSBSave.Size = new System.Drawing.Size(23, 22);
             this.TSBSave.Text = "Save";
             // 
+            // TSS1
+            // 
+            this.TSS1.Name = "TSS1";
+            this.TSS1.Size = new System.Drawing.Size(6, 25);
+            // 
             // TSBUndo
             // 
             this.TSBUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSBUndo.Enabled = false;
             this.TSBUndo.Image = global::chess.Properties.Resources.Undo;
             this.TSBUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TSBUndo.Name = "TSBUndo";
@@ -330,12 +330,18 @@
             // TSBRedo
             // 
             this.TSBRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSBRedo.Enabled = false;
             this.TSBRedo.Image = global::chess.Properties.Resources.Redo;
             this.TSBRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TSBRedo.Name = "TSBRedo";
             this.TSBRedo.Size = new System.Drawing.Size(23, 22);
             this.TSBRedo.Text = "Redo";
             this.TSBRedo.Click += new System.EventHandler(this.TSBRedo_Click);
+            // 
+            // TSS2
+            // 
+            this.TSS2.Name = "TSS2";
+            this.TSS2.Size = new System.Drawing.Size(6, 25);
             // 
             // TSBPreferences
             // 
@@ -368,8 +374,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.SBPWhite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPBlack)).EndInit();
             this.TCMain.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.TPHistory.ResumeLayout(false);
+            this.TPHistory.PerformLayout();
             this.TSMain.ResumeLayout(false);
             this.TSMain.PerformLayout();
             this.ResumeLayout(false);
@@ -397,9 +403,9 @@
         private System.Windows.Forms.MenuItem MIHelp;
         private System.Windows.Forms.MainMenu MenuMain;
         private System.Windows.Forms.TabControl TCMain;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage TPHistory;
         private System.Windows.Forms.Panel PBoard;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TBHistory;
         private System.Windows.Forms.ToolStrip TSMain;
         private System.Windows.Forms.ToolStripButton TSBOpen;
         private System.Windows.Forms.ToolStripButton TSBSave;

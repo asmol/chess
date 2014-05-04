@@ -34,8 +34,8 @@ namespace chess
         {
             return new Player[]{
                 new Player(ETeam.White,  600),
-                //new Player(ETeam.Black,600)
                 new Player(ETeam.Black,  600)
+                //new ComputerDefault(ETeam.Black,600)
             };
         }
     }

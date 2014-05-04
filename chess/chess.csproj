@@ -49,12 +49,14 @@
     <Compile Include="Concrete\Computer\ComputerDefault.cs" />
     <Compile Include="Concrete\Game.cs" />
     <Compile Include="Concrete\Computer\Move.cs" />
+    <Compile Include="Concrete\History.cs" />
     <Compile Include="Concrete\Player.cs" />
     <Compile Include="Concrete\SimpleTurnProcessor.cs" />
     <Compile Include="Figure\Bishop.cs" />
     <Compile Include="Concrete\GameMemento.cs" />
     <Compile Include="Abstract\ICareTaker.cs" />
     <Compile Include="Abstract\IOriginator.cs" />
+    <Compile Include="Figure\Figure.cs" />
     <Compile Include="Figure\King.cs" />
     <Compile Include="Figure\Knight.cs" />
     <Compile Include="Figure\Pawn.cs" />
@@ -206,6 +208,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons\prefs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\redo_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\undo_off.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

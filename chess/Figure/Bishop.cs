@@ -6,11 +6,8 @@ using System.Drawing;
 
 namespace chess
 {
-    public class Bishop : IFigure
+    public class Bishop : Figure, IFigure
     {
-        private readonly ETeam team;
-        private readonly EType type = EType.Bishop;
-
         public ETeam Team
         {
             get {return team;}
@@ -20,10 +17,7 @@ namespace chess
             get {return type;}
         }
 
-        public Bishop(ETeam team)
-        {
-            this.team = team;
-        }
+        public Bishop(ETeam team): base(team,EType.Bishop) { }
 
         public bool CanReachTile(Point from, Point to, IFigure[,] figures)
         {

@@ -71,7 +71,7 @@ namespace chess
         public void StartGame()
         {
             _memento = new GameMemento();
-            StateChanged(_field,false,_memento.Turns,Array.IndexOf(_players,_activePlayer),_memento.CurrentTurn);
+            StateChanged(_field,false,_memento.Turns,0,_memento.CurrentTurn);
             _activePlayer.AllowToDoTurn(this);
         }
 
@@ -103,7 +103,7 @@ namespace chess
                 , ref  _movedKingsOrRooks, out wasPawnPromotion);
             AddTurnInMemento(from, to, 0, wasPawnPromotion);
 
-            StateChanged(_field,false,_memento.Turns,Array.IndexOf(_players,_activePlayer),_memento.CurrentTurn);
+            StateChanged(_field,false,_memento.Turns,Array.IndexOf(_players,_activePlayer) == 0 ? 1 : 0,_memento.CurrentTurn);
 
             if (result == ETurnResult.normal)
             {
@@ -129,7 +129,8 @@ namespace chess
 
         public void RedoTurn()
         {
-            if (_memento.CurrentTurn < _memento.Turns.Count)
+            //if (_memento.CurrentTurn < _memento.Turns.Count)
+            if (_memento.CurrentTurn != _memento.Turns.Count)
             {
                 _memento.CurrentTurn++;
                 RestoreState(_memento);
@@ -176,14 +177,12 @@ namespace chess
         
 
 
-        IFigure[,] CreateStartFigures()
+        public static IFigure[,] CreateStartFigures()
         {
             return new IFigure[8, 8]
             {
                 {new Rook(ETeam.Black),new Knight(ETeam.Black),new Bishop(ETeam.Black),new Queen(ETeam.Black),new King(ETeam.Black),new Bishop(ETeam.Black),new Knight(ETeam.Black),new Rook(ETeam.Black)},
                 {new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black)},
-                //{new King(ETeam.Black),null,null,null,null,null,null,null},
-                //{null,null,null,null,null,null,null,null},
                 {null,null,null,null,null,null,null,null},
                 {null,null,null,null,null,null,null,null},
                 {null,null,null,null,null,null,null,null},

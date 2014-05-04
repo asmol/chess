@@ -2,12 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace chess
 {
     public enum ETeam {White, Black}
-    public enum EType {Pawn, Knight, Bishop, Rook, Queen, King}
+    public enum EType
+    {
+        [Description("")]
+        Pawn,
+        [Description("N")]
+        Knight,
+        [Description("B")]
+        Bishop,
+        [Description("R")]
+        Rook,
+        [Description("Q")]
+        Queen,
+        [Description("K")]
+        King
+    }
 
     public interface IFigure
     {

@@ -61,7 +61,7 @@ namespace chess
             _lastUsersTurnTo = null;
             _lastUsersTurnFrom = null;
             _userCancelledTurn = false;
-            _userCancelledTurn = false;
+            _userRepeatedTurn = false;
         }
 
         bool UserDidSomeAction()

@@ -32,7 +32,7 @@ namespace chess
         event MoveCancelledHandler MoveCancelled;
         event MoveRepeatedHandler MoveRepeated;
         void DrawBoard(IFigure[,] figures, bool reverse, List<Turn> moves, int activePlayer, int currentMove);
-        void UpdateData(Player[] players, int activePlayer, int currentMove);
+        void UpdateData(Player[] players, int activePlayer);
         EPawnPromotion ChoosePawnPromotion();
     }
 }

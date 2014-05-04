@@ -16,6 +16,10 @@ namespace chess
             InitializeComponent();
 
             CBTimeEnabled_CheckedChanged(null,null);
+            ToolTip black = new ToolTip();
+            ToolTip reverse = new ToolTip();
+            black.SetToolTip(CBBoardSetting1,"Affects only new games");
+            reverse.SetToolTip(CBBoardSetting2,"Only in game against human");
         }
 
         private void BOK_Click(object sender, EventArgs e)

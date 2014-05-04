@@ -16,7 +16,7 @@ namespace chess
             Rook = 5,
             Queen = 9,
             King = 0
-        };
+        }
         private ITurnProcessor processor = new SimpleTurnProcessor();
         private int movesCount = 0;
         
@@ -101,8 +101,7 @@ namespace chess
 
         private bool isMovePossible(Point from, Point to, IFigure[,] field, ETeam team)
         {
-            return true;
-            //return processor.CheckTurn(field,team,new Point2(from.X,from.Y),new Point2(to.X,to.Y)) != ETurnResult.prohibited;
+            return processor.IsAllowedTurn(field,team,new Point2(from.X,from.Y),new Point2(to.X,to.Y),new List<IFigure>(),new Point2(),new Point2());
         }
 
         #endregion

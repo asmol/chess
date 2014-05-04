@@ -6,11 +6,8 @@ using System.Drawing;
 
 namespace chess
 {
-    class Pawn : IFigure
+    class Pawn : Figure, IFigure
     {
-        private readonly ETeam team;
-        private readonly EType type = EType.Pawn;
-
         public ETeam Team
         {
             get {return team;}
@@ -20,10 +17,7 @@ namespace chess
             get {return type;}
         }
 
-        public Pawn(ETeam team)
-        {
-            this.team = team;
-        }
+        public Pawn(ETeam team): base(team,EType.Pawn) { }
 
         public bool CanReachTile(Point from, Point to, IFigure[,] figures)
         {

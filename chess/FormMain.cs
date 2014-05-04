@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace chess
 {
@@ -67,6 +68,7 @@ namespace chess
             if (WindowState != lastWindowState)
             {
                 draw();
+                scrollHistoryDown();
                 lastWindowState = WindowState;
             }
         }
@@ -74,6 +76,7 @@ namespace chess
         private void FormMain_ResizeEnd(object sender, EventArgs e)
         {
             draw();
+            scrollHistoryDown();
         }
 
         #endregion
@@ -119,6 +122,11 @@ namespace chess
             preferences.ShowDialog();
         }
 
+        private void MIAbout_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("","About");
+        }
+
         private void TSBUndo_Click(object sender, EventArgs e)
         {
             MoveCancelled(this,new EventArgs());
@@ -145,35 +153,39 @@ namespace chess
             this.figures = (IFigure[,])figures.Clone();
             draw();
 
-            // SBPMove.Text = "Move #"+currentMove+": "+(activePlayer == 0 ? "white" : "black")+"'s turn"; // TODO: вызывать из Game с помощью Invoke
+            invokeEx(this,new Action(delegate()
+                {
+                    SBPMove.Text = "Move #"+((currentMove/2)+1)+": "+(activePlayer == 0 ? "white" : "black")+"’s turn";
+                    TBHistory.Text = History.GetHistory(moves,currentMove);
+                    scrollHistoryDown();
+
+                    TSBUndo.Enabled = currentMove > 0;
+                    TSBRedo.Enabled = currentMove != moves.Count;
+                    MIUndo.Enabled = TSBUndo.Enabled;
+                    MIRedo.Enabled = TSBRedo.Enabled;
+                }
+                ));
+            
         }
 
-        public void UpdateData(Player[] players, int activePlayer, int currentMove)
+        public void UpdateData(Player[] players, int activePlayer)
         {
             if (activePlayer == 0)
             {
                 TimeSpan white = TimeSpan.FromSeconds(players[0].Time);
-                SBPWhite.Text = "White: "+white.Minutes+":"+white.Seconds;
+                invokeEx(this,new Action(delegate() {SBPWhite.Text = "White: "+white.Minutes+":"+white.Seconds;}));
             }
             else
             {
                 TimeSpan black = TimeSpan.FromSeconds(players[1].Time);
-                SBPBlack.Text = "Black: "+black.Minutes+":"+black.Seconds;
+                invokeEx(this,new Action(delegate() {SBPBlack.Text = "Black: "+black.Minutes+":"+black.Seconds;}));
             }
-        }
-
-        private void showPromotionDialog() // Решение проблемы с потоком
-        {
-            if (this.InvokeRequired)
-                this.Invoke((MethodInvoker)delegate() {showPromotionDialog();});
-            else
-                promotion.ShowDialog();
         }
 
         public EPawnPromotion ChoosePawnPromotion()
         {
             promotionFigure = null;
-            showPromotionDialog();
+            invokeEx(this,new Action(delegate() {promotion.ShowDialog();}));
             while (promotionFigure == null);
             return promotionFigure ?? EPawnPromotion.Queen;
         }
@@ -209,9 +221,35 @@ namespace chess
             if (this.figures != null)
                 for (int i = 0; i < 8; i++)
                     for (int j = 0; j < 8; j++)
-                        if (this.figures[i,j] != figures[i,j])
+                        if (!areFiguresEqual(this.figures[i,j],figures[i,j]))
                             result.Add(!boardReversed ? new Point(j,i) : AreaF.ReverseCell(new Point(j,i)));
             return result;
+        }
+
+        #endregion
+        #region Вспомогательные методы
+
+        delegate void Action();
+
+        private void invokeEx(Control target, Action action)
+        {
+            if (target.InvokeRequired)
+                target.Invoke((MethodInvoker)delegate() {invokeEx(target,action);});
+            else
+                action();
+        }
+
+        private bool areFiguresEqual(IFigure one, IFigure two)
+        {
+            if (one == two || (one != null && two != null && one.Team == two.Team && one.Type == two.Type))
+                return true;
+            return false;
+        }
+
+        private void scrollHistoryDown()
+        {
+            TBHistory.SelectionStart = TBHistory.TextLength;
+            TBHistory.ScrollToCaret();
         }
 
         #endregion
