@@ -51,16 +51,12 @@
     <Compile Include="Concrete\Computer\Move.cs" />
     <Compile Include="Concrete\Player.cs" />
     <Compile Include="Concrete\SimpleTurnProcessor.cs" />
-    <Compile Include="Figure\Bishop.cs" />
     <Compile Include="Concrete\GameMemento.cs" />
     <Compile Include="Abstract\ICareTaker.cs" />
     <Compile Include="Abstract\IOriginator.cs" />
     <Compile Include="Figure\King.cs" />
-    <Compile Include="Figure\Knight.cs" />
-    <Compile Include="Figure\Pawn.cs" />
+    <Compile Include="Figure\Man.cs" />
     <Compile Include="Figure\IFigure.cs" />
-    <Compile Include="Figure\Queen.cs" />
-    <Compile Include="Figure\Rook.cs" />
     <Compile Include="Concrete\SimpleCareTaker.cs" />
     <Compile Include="Concrete\Turn.cs" />
     <Compile Include="FormMain.cs">

@@ -6,8 +6,8 @@ using System.Drawing;
 
 namespace chess
 {
-    public enum ETeam {White, Black}
-    public enum EType {Pawn, Knight, Bishop, Rook, Queen, King}
+    public enum ETeam {White,Black}
+    public enum EType {Man,King}
     public enum EReachResult { none, move, capture } // не возможен ход, простое передвижение, захват
     public interface IFigure
     {

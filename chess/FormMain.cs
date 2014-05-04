@@ -99,7 +99,7 @@ namespace chess
                     selectedFigure = AreaF.Empty;
                     selectedCells.Add(selectedCell);
                     if (FigureMoved != null)
-                        FigureMoved(this,new FigureMovedEventArgs(!boardReversed ? selectedCells[0] : AreaF.ReverseCell(selectedCells[0]),!boardReversed ? selectedCells[1] : AreaF.ReverseCell(selectedCells[1])));
+                        FigureMoved(this,new FigureMovedEventArgs(selectedCells.ToArray()));
                 }
             }
         }

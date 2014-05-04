@@ -6,10 +6,10 @@ using System.Drawing;
 
 namespace chess
 {
-    class King : IFigure
+    class Man : IFigure
     {
         private readonly ETeam team;
-        private readonly EType type = EType.King;
+        private readonly EType type = EType.Man;
 
         public ETeam Team
         {
@@ -20,7 +20,7 @@ namespace chess
             get {return type;}
         }
 
-        public King(ETeam team)
+        public Man(ETeam team)
         {
             this.team = team;
         }
@@ -49,7 +49,7 @@ namespace chess
         {
             Point[] between = AreaF.BetweenPoints(new Point(from.Y,from.X),new Point(from.Y,from.X));
             foreach (Point point in between)
-                if (field[point.Y,point.X].Team != team)
+                if (field[point.Y,point.X] != null && field[point.Y,point.X].Team != team)
                     field[point.Y,point.X] = null;
         }
     }

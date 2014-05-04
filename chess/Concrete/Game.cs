@@ -178,18 +178,16 @@ namespace chess
 
         IFigure[,] CreateStartFigures()
         {
-            return new IFigure[8, 8]
+            return new IFigure[8,8]
             {
-                {new Rook(ETeam.Black),new Knight(ETeam.Black),new Bishop(ETeam.Black),new Queen(ETeam.Black),new King(ETeam.Black),new Bishop(ETeam.Black),new Knight(ETeam.Black),new Rook(ETeam.Black)},
-                {new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black),new Pawn(ETeam.Black)},
-                //{new King(ETeam.Black),null,null,null,null,null,null,null},
-                //{null,null,null,null,null,null,null,null},
+                {null,new Man(ETeam.Black),null,new Man(ETeam.Black),null,new Man(ETeam.Black),null,new Man(ETeam.Black)},
+                {new Man(ETeam.Black),null,new Man(ETeam.Black),null,new Man(ETeam.Black),null,new Man(ETeam.Black),null},
+                {null,new Man(ETeam.Black),null,new Man(ETeam.Black),null,new Man(ETeam.Black),null,new Man(ETeam.Black)},
                 {null,null,null,null,null,null,null,null},
                 {null,null,null,null,null,null,null,null},
-                {null,null,null,null,null,null,null,null},
-                {null,null,null,null,null,null,null,null},
-                {new Pawn(ETeam.White),new Pawn(ETeam.White),new Pawn(ETeam.White),new Pawn(ETeam.White),new Pawn(ETeam.White),new Pawn(ETeam.White),new Pawn(ETeam.White),new Pawn(ETeam.White)},
-                {new Rook(ETeam.White),new Knight(ETeam.White),new Bishop(ETeam.White),new Queen(ETeam.White),new King(ETeam.White),new Bishop(ETeam.White),new Knight(ETeam.White),new Rook(ETeam.White)}
+                {new Man(ETeam.White),null,new Man(ETeam.White),null,new Man(ETeam.White),null,new Man(ETeam.White),null},
+                {null,new Man(ETeam.White),null,new Man(ETeam.White),null,new Man(ETeam.White),null,new Man(ETeam.White)},
+                {new Man(ETeam.White),null,new Man(ETeam.White),null,new Man(ETeam.White),null,new Man(ETeam.White),null}
             };
         }
         #endregion

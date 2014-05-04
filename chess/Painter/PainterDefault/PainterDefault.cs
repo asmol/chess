@@ -82,21 +82,13 @@ namespace chess
                         case ETeam.White:
                             switch (figures[i,j].Type)
                             {
-                                case EType.Knight: figure = Resources.KnightWhite; break;
-                                case EType.Bishop: figure = Resources.BishopWhite; break;
-                                case EType.Rook: figure = Resources.RookWhite; break;
-                                case EType.Queen: figure = Resources.QueenWhite; break;
                                 case EType.King: figure = Resources.KingWhite; break;
                             }
                             break;
                         case ETeam.Black:
                             switch (figures[i,j].Type)
                             {
-                                case EType.Pawn: figure = Resources.PawnBlack; break;
-                                case EType.Knight: figure = Resources.KnightBlack; break;
-                                case EType.Bishop: figure = Resources.BishopBlack; break;
-                                case EType.Rook: figure = Resources.RookBlack; break;
-                                case EType.Queen: figure = Resources.QueenBlack; break;
+                                case EType.Man: figure = Resources.PawnBlack; break;
                                 case EType.King: figure = Resources.KingBlack; break;
                             }
                             break;
