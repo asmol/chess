@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ICheckersTurnProcessor.cs" />
     <Compile Include="Abstract\IFormPromotion.cs" />
     <Compile Include="Abstract\ITurnProcessor.cs" />
+    <Compile Include="Concrete\CheckersTurnProcessor.cs" />
     <Compile Include="Concrete\Computer\ComputerDefault.cs" />
     <Compile Include="Concrete\Game.cs" />
     <Compile Include="Concrete\Computer\Move.cs" />

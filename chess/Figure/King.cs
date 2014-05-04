@@ -28,18 +28,24 @@ namespace chess
         public EReachResult CanReachTile(Point2 from, Point2 to, IFigure[,] figures)
         {
             int x = Math.Abs(from.X-to.X),
-                y = Math.Abs(from.Y-to.Y),
-                signedY = from.Y-to.Y;
+                y = Math.Abs(from.Y-to.Y);
             Point[] between = AreaF.BetweenPoints(new Point(from.Y,from.X),new Point(from.Y,from.X));
-            if (x > 0 && y > 0 && x == y && signedY > 0)
+            if (x > 0 && y > 0 && x == y)
                 if (figures[to.Y,to.X] == null)
                 {
+                    int enemiesCount = 0, piecesCount = 0;
                     foreach (Point point in between)
                         if (figures[point.Y,point.X] != null)
+                        {
+                            piecesCount++;
                             if (figures[point.Y,point.X].Team != team)
-                                return EReachResult.capture;
-                            else
-                                return EReachResult.none;
+                                enemiesCount++;
+                        }
+                    if (enemiesCount > 1 || piecesCount > enemiesCount)
+                        return EReachResult.none;
+                    else
+                        if (enemiesCount == 1)
+                            return EReachResult.capture;
                     return EReachResult.move;
                 }
             return EReachResult.none;
@@ -49,7 +55,7 @@ namespace chess
         {
             Point[] between = AreaF.BetweenPoints(new Point(from.Y,from.X),new Point(from.Y,from.X));
             foreach (Point point in between)
-                if (field[point.Y,point.X].Team != team)
+                if (field[point.Y,point.X] != null && field[point.Y,point.X].Team != team)
                     field[point.Y,point.X] = null;
         }
     }

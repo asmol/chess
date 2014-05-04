@@ -81,27 +81,32 @@ namespace chess
 
         private void PBoard_MouseClick(object sender, MouseEventArgs e)
         {
-            if (field.InArea(e.Location))
+            if (e.Button == System.Windows.Forms.MouseButtons.Left) // Выбор фигуры и ходов
             {
-                Point selectedCell = new Point((int)Math.Floor((e.X-field.Position.X)/(field.Size.Width/8)),(int)Math.Floor((e.Y-field.Position.Y)/(field.Size.Height/8)));
-                if (selectedFigure == AreaF.Empty)
+                if (field.InArea(e.Location))
                 {
-                    if (figures[!boardReversed ? selectedCell.Y : AreaF.ReverseCell(selectedCell.Y),!boardReversed ? selectedCell.X : AreaF.ReverseCell(selectedCell.X)] != null)
+                    Point selectedCell = new Point((int)Math.Floor((e.X-field.Position.X)/(field.Size.Width/8)),(int)Math.Floor((e.Y-field.Position.Y)/(field.Size.Height/8)));
+                    if (selectedFigure == AreaF.Empty)
                     {
-                        selectedFigure = selectedCell;
-                        selectedCells.Clear();
-                        selectedCells.Add(selectedCell);
-                        draw();
+                        if (figures[!boardReversed ? selectedCell.Y : AreaF.ReverseCell(selectedCell.Y),!boardReversed ? selectedCell.X : AreaF.ReverseCell(selectedCell.X)] != null)
+                        {
+                            selectedFigure = selectedCell;
+                            selectedCells.Clear();
+                            selectedCells.Add(selectedCell);
+                            draw();
+                        }
                     }
-                }
-                else
-                {
-                    selectedFigure = AreaF.Empty;
-                    selectedCells.Add(selectedCell);
-                    if (FigureMoved != null)
-                        FigureMoved(this,new FigureMovedEventArgs(selectedCells.ToArray()));
+                    else
+                        selectedCells.Add(selectedCell);
                 }
             }
+            else
+                if (e.Button == System.Windows.Forms.MouseButtons.Right) // Окончание ходов
+                {
+                    selectedFigure = AreaF.Empty;
+                    if (FigureMoved != null)
+                            FigureMoved(this,new FigureMovedEventArgs(selectedCells.ToArray()));
+                }
         }
 
         private void MIUndo_Click(object sender, EventArgs e)

@@ -31,7 +31,7 @@ namespace chess
                 y = Math.Abs(from.Y-to.Y),
                 signedY = from.Y-to.Y;
             Point[] between = AreaF.BetweenPoints(new Point(from.Y,from.X),new Point(from.Y,from.X));
-            if (x > 0 && y > 0 && x == y && signedY > 0)
+            if (x == 2 && y == 2 && signedY < 0)
                 if (figures[to.Y,to.X] == null)
                 {
                     foreach (Point point in between)

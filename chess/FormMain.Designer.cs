@@ -43,6 +43,8 @@
             this.MIUndo = new System.Windows.Forms.MenuItem();
             this.MIRedo = new System.Windows.Forms.MenuItem();
             this.MIEdit = new System.Windows.Forms.MenuItem();
+            this.MISeparator = new System.Windows.Forms.MenuItem();
+            this.MIPreferences = new System.Windows.Forms.MenuItem();
             this.MIAbout = new System.Windows.Forms.MenuItem();
             this.MIHelp = new System.Windows.Forms.MenuItem();
             this.MenuMain = new System.Windows.Forms.MainMenu(this.components);
@@ -51,16 +53,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PBoard = new System.Windows.Forms.Panel();
             this.TSMain = new System.Windows.Forms.ToolStrip();
-            this.TSS1 = new System.Windows.Forms.ToolStripSeparator();
-            this.MIPreferences = new System.Windows.Forms.MenuItem();
-            this.MISeparator = new System.Windows.Forms.MenuItem();
-            this.TSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBComputer = new System.Windows.Forms.ToolStripButton();
             this.TSBHuman = new System.Windows.Forms.ToolStripButton();
             this.TSBOpen = new System.Windows.Forms.ToolStripButton();
             this.TSBSave = new System.Windows.Forms.ToolStripButton();
+            this.TSS1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBUndo = new System.Windows.Forms.ToolStripButton();
             this.TSBRedo = new System.Windows.Forms.ToolStripButton();
+            this.TSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSBPreferences = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.SBPMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SBPWhite)).BeginInit();
@@ -172,6 +172,18 @@
             this.MIPreferences});
             this.MIEdit.Text = "Edit";
             // 
+            // MISeparator
+            // 
+            this.MISeparator.Index = 2;
+            this.MISeparator.Text = "-";
+            // 
+            // MIPreferences
+            // 
+            this.MIPreferences.Index = 3;
+            this.MIPreferences.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
+            this.MIPreferences.Text = "Preferences…";
+            this.MIPreferences.Click += new System.EventHandler(this.MIPreferences_Click);
+            // 
             // MIAbout
             // 
             this.MIAbout.Index = 0;
@@ -259,28 +271,6 @@
             this.TSMain.TabIndex = 3;
             this.TSMain.Text = "toolStrip1";
             // 
-            // TSS1
-            // 
-            this.TSS1.Name = "TSS1";
-            this.TSS1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // MIPreferences
-            // 
-            this.MIPreferences.Index = 3;
-            this.MIPreferences.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
-            this.MIPreferences.Text = "Preferences…";
-            this.MIPreferences.Click += new System.EventHandler(this.MIPreferences_Click);
-            // 
-            // MISeparator
-            // 
-            this.MISeparator.Index = 2;
-            this.MISeparator.Text = "-";
-            // 
-            // TSS2
-            // 
-            this.TSS2.Name = "TSS2";
-            this.TSS2.Size = new System.Drawing.Size(6, 25);
-            // 
             // TSBComputer
             // 
             this.TSBComputer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -317,6 +307,11 @@
             this.TSBSave.Size = new System.Drawing.Size(23, 22);
             this.TSBSave.Text = "Save";
             // 
+            // TSS1
+            // 
+            this.TSS1.Name = "TSS1";
+            this.TSS1.Size = new System.Drawing.Size(6, 25);
+            // 
             // TSBUndo
             // 
             this.TSBUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -336,6 +331,11 @@
             this.TSBRedo.Size = new System.Drawing.Size(23, 22);
             this.TSBRedo.Text = "Redo";
             this.TSBRedo.Click += new System.EventHandler(this.TSBRedo_Click);
+            // 
+            // TSS2
+            // 
+            this.TSS2.Name = "TSS2";
+            this.TSS2.Size = new System.Drawing.Size(6, 25);
             // 
             // TSBPreferences
             // 
