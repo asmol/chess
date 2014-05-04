@@ -16,13 +16,11 @@ namespace chess
 
     public class FigureMovedEventArgs : EventArgs
     {
-        public Point From {get; set;}
-        public Point To {get; set;}
+        public Point[] way;
 
-        public FigureMovedEventArgs(Point from, Point to)
+        public FigureMovedEventArgs(Point[] way)
         {
-            From = from;
-            To = to;
+            this.way = way;
         }
     }
 
